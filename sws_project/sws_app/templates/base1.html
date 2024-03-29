@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .primary-color {
+            background-color: #007bff;
+            /* Blue color similar to btn-primary in Bootstrap */
+            color: #fff;
+            /* White text color */
+            padding: 7px;
+        }
+
+        .success-color {
+            background-color: #28a745;
+            /* Blue color similar to btn-primary in Bootstrap */
+            color: #fff;
+            /* White text color */
+            padding: 7px;
+        }
+
+        .transparent-cell {
+            position: relative;
+            /* Position relative for absolute positioning */
+            background-color: #007bff;
+            padding: 7px;
+        }
+
+        .transparent-layer {
+            position: absolute;
+            top: -25%;
+            /*Adjust the position to be slightly higher*/
+            left: -15%;
+            width: 130%;
+            height: 150%;
+            /* Set the height to cover the whole window and be slightly higher */
+            background-color: rgba(0, 123, 255, 0.3);
+            /* Blue color with transparency */
+            z-index: 1;
+        }
+
+        .current-cell {
+            color: #fff;
+            /* White text color */
+            padding: 7px;
+            max-height: 5px;
+            background-color: #FF0000;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% block title %} {% endblock %}
+    {% block content %} {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+{% extends "base1.html" %}
+
+{% block title %}
+<h1>SLIDING WINDOW MAXIMUM SIMULATOR</h1>
+<p style="background-color: #f5f5f5; padding: 10px;">
+    Statement: You are given an array of integers nums, there is a sliding window of size k which is moving from the
+    very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window
+    moves right by one position.
+    Return the max sliding window.
+    <br>
+    <a href="https://leetcode.com/problems/sliding-window-maximum/description/">leetcode link</a>
+</p>
+{% endblock %}
+
+{% block content %}
+<div>
+    <form action="{% url 'sw_simulator' %}" method="post" style="background-color: #f5f5f5; padding: 10px; width: 30%;">
+        {% csrf_token %}
+        <label for="element"><b>Enter a element : </b></label>
+        <input type="number" name="num" required>
+
+        <button type="submit" class="primary-color">SUBMIT</button>
+    </form>
+</div>
+
+<div>
+    <h2>WINDOW SIZE : {{window_size}}</h2>
+    <div
+        style="justify-content: center; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9); margin: 20px; padding: 20px; overflow: auto;">
+        <div style="display: flex; justify-content: center; margin-left: auto; margin-right: auto;">
+            <label for="list"><b>List</b></label>
+            <table class="table" id="list">
+                <tr>
+                    {% for ind, ele in list %}
+                    {% if ind != curr_ind and ind < window_start %} <td class="primary-color">{{ ele }}</td>
+                        {% elif ind != curr_ind %}
+                        <td class="transparent-cell">
+                            <div class="transparent-layer"></div>
+                            {{ ele }}
+                        </td>
+                        {% else %}
+                        <td class="current-cell transparent-cell">
+                            <div class="transparent-layer"></div>
+                            {{ ele }}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                </tr>
+            </table>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <label for="result"><b>Result :</b></label>
+            <table class="table" id="result">
+                <tr>
+                    {% for ind, ele in res %}
+                    {% if ind != res_ind %}
+                    <td class="success-color">{{ ele }}</td>
+                    {% else %}
+                    <td class="current-cell transparent-cell">
+                        {{ ele }}
+                    </td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div
+        style="justify-content: center; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9); margin: 20px; padding: 20px; overflow: auto;">
+        <ul>
+            <li>Index in deque will be pushed from right only</li>
+            <li>deque only stores index of the element. Out of window index will be popped from left And if an element
+                will come then all the index with value less then current element will be poppep from deque from right</li>
+        </ul>
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <label for="result"><b>DEQUE :</b></label>
+            <table class="table" id="result">
+                <tr>
+                    <td class="primary-color">.</td>
+                    {% for ind in dq_list %}
+                    <td class="primary-color"> {{ ind }} </td>
+                    {% endfor %}
+                    <td class="primary-color">.</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div style="display: flex; justify-content: center; margin-left: auto; margin-right: auto;">
+
+
+            <div style="justify-content: left; margin-left: auto; margin-right: auto;">
+                <label for="popped_left"><b>popped left: </b></label>
+                <table id="popped_left">
+                    <th>
+                        {% if popped_left is not None %}
+                    <td class="current-cell">{{popped_left}}</td>
+                    {% endif %}
+                    </th>
+                </table>
+            </div>
+
+            <div style="justify-content:right; margin-left: auto; margin-right: auto;">
+                <label for="popped_right"><b>popped right: </b></label>
+                <table id="popped_right">
+                    <th>
+                        {% for ele in popped_right %}
+                    <td class="current-cell">{{ele}}</td>
+                    {% endfor %}
+                    </th>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
